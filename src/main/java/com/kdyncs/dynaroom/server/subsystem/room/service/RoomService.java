@@ -18,6 +18,7 @@
  */
 package com.kdyncs.dynaroom.server.subsystem.room.service;
 
+import com.kdyncs.dynaroom.protocol.message.type.RoomCreate;
 import com.kdyncs.dynaroom.protocol.message.type.RoomJoin;
 import com.kdyncs.dynaroom.server.subsystem.core.ConnectionPool;
 import com.kdyncs.dynaroom.server.subsystem.deployment.ApplicationPool;
@@ -26,8 +27,10 @@ import com.kdyncs.dynaroom.server.subsystem.room.model.application.Room;
 import com.kdyncs.dynaroom.server.subsystem.room.model.application.RoomPool;
 import com.kdyncs.dynaroom.server.subsystem.room.protocol.Command;
 import com.kdyncs.dynaroom.server.subsystem.room.model.connection.ClientConnection;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,28 +42,32 @@ public class RoomService {
     // Spring Components
     private final ConnectionPool connections;
     private final ApplicationPool applications;
+    private final ApplicationContext context;
 
-    public RoomService(ConnectionPool connections, ApplicationPool applications) {
+    public RoomService(ConnectionPool connections, ApplicationPool applications, ApplicationContext context) {
         this.connections = connections;
         this.applications = applications;
+        this.context = context;
     }
 
     public void join(Command command) {
 
-        log.info("Joining Channel");
+        log.info("Joining Room");
 
         // Retrieve Client
-        ClientConnection connection = connections.get(command.getIssuer());
+        var connection = connections.get(command.getIssuer());
 
         // Rebuild Message
-        RoomJoin message = new RoomJoin(command.getData());
+        var message = new RoomJoin(command.getData());
 
-        // TODO: Validate Protocol State
-        //
-        Application application = applications.get(connection.getApplicationKey());
+        // Validate Protocol State
+        // TODO: 
+        
+        // Get copy of Application
+        var application = applications.get(connection.getApplicationKey());
 
-        // Get Channels
-        RoomPool rooms = application.getRooms();
+        // Get Rooms
+        var rooms = application.getRooms();
 
         // Check if Room Exists
         if (!rooms.contains(message.getRoomId())) {
@@ -69,19 +76,52 @@ public class RoomService {
             rooms.add(room.getCode(), room);
         }
 
-        Room room = rooms.find(message.getRoomId());
+        var room = rooms.find(message.getRoomId());
 
         // Send 
-        log.info("Channel Joined");
+        log.info("Room Joined");
     }
 
     public void create(Command command) {
 
-        //Room room = new Room();
-        //rooms.add(room.getCode(), room);
+        log.info("Creating Room");
+        
+        // Retrieve Client
+        var connection = connections.get(command.getIssuer());
+        
+        // Rebuild Message
+        //var message = new RoomCreate(command.getData());
+        
+        // Validate Protocol State
+        // TODO:
+        
+        // Get copy of Application
+        var application = applications.get(connection.getApplicationKey());
+                
+        // Get Existing Rooms
+        var rooms = application.getRooms();
+        
+        // Generate a Room
+        var room = context.getBean(Room.class);
+        room.setHost(connection);
+        
+        // Generate a Unique Room Code
+        do {
+            room.setCode(generateRoomCode());
+        } while (rooms.contains(room.getCode()));
+        
+        
+        // Add Room
+        rooms.add(room.getCode(), room);
+        
     }
 
     public void list(Command command) {
-
+        // TODO: Implement Public Room Lookup
+    }
+    
+    // Generate a Room Code
+    private static String generateRoomCode() {
+        return RandomStringUtils.randomAlphabetic(4);
     }
 }

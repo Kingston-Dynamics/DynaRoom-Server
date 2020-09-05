@@ -18,6 +18,7 @@
  */
 package com.kdyncs.dynaroom.server.subsystem.room.model.application;
 
+import com.kdyncs.dynaroom.server.subsystem.room.model.connection.ClientConnection;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ public class Room {
     
     // Channel Data
     private String code;
-    private String host;
+    private ClientConnection host;
     private boolean isPublic;
         
     public String getCode() {
@@ -42,11 +43,11 @@ public class Room {
         this.code = name;
     }
     
-    public String getHost() {
+    public ClientConnection getHost() {
         return this.host;
     }
     
-    public void setHost(String host) {
+    public void setHost(ClientConnection host) {
         this.host = host;
     }
 

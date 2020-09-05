@@ -168,4 +168,8 @@ public class ClientConnection implements NetworkManager {
     public void setExternalID(String externalID) {
         this.externalID = externalID;
     }
+    
+    public String getHostAddress() {
+        return socket.getRemoteSocketAddress().toString();
+    }
 }
