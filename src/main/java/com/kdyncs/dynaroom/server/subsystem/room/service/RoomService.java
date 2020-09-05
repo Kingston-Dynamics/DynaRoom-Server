@@ -19,7 +19,7 @@
 package com.kdyncs.dynaroom.server.subsystem.room.service;
 
 import com.kdyncs.dynaroom.protocol.message.type.RoomJoin;
-import com.kdyncs.dynaroom.server.core.ConnectionPool;
+import com.kdyncs.dynaroom.server.subsystem.core.ConnectionPool;
 import com.kdyncs.dynaroom.server.subsystem.deployment.ApplicationPool;
 import com.kdyncs.dynaroom.server.subsystem.room.model.application.Application;
 import com.kdyncs.dynaroom.server.subsystem.room.model.application.Room;

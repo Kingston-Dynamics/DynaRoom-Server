@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.kdyncs.dynaroom.server.core;
+package com.kdyncs.dynaroom.server.subsystem.core;
 
 import com.kdyncs.dynaroom.server.subsystem.room.model.connection.ClientConnection;
 import org.apache.logging.log4j.LogManager;

@@ -18,7 +18,7 @@
  */
 package com.kdyncs.dynaroom.server.subsystem.room;
 
-import com.kdyncs.dynaroom.server.core.ConnectionListener;
+import com.kdyncs.dynaroom.server.subsystem.core.ConnectionListener;
 import com.kdyncs.dynaroom.server.subsystem.room.service.ConnectionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

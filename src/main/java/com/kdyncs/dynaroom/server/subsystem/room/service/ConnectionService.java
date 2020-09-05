@@ -21,7 +21,7 @@ package com.kdyncs.dynaroom.server.subsystem.room.service;
 import com.kdyncs.dynaroom.protocol.networking.NetworkReader;
 import com.kdyncs.dynaroom.protocol.networking.NetworkWriter;
 import com.kdyncs.dynaroom.protocol.utils.Keyinator;
-import com.kdyncs.dynaroom.server.core.ConnectionPool;
+import com.kdyncs.dynaroom.server.subsystem.core.ConnectionPool;
 import com.kdyncs.dynaroom.server.subsystem.room.model.connection.ClientConnection;
 import com.kdyncs.dynaroom.server.subsystem.room.protocol.Command;
 import org.apache.logging.log4j.LogManager;

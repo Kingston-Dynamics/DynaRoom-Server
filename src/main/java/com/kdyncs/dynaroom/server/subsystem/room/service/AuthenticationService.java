@@ -20,7 +20,7 @@ package com.kdyncs.dynaroom.server.subsystem.room.service;
 
 import com.kdyncs.dynaroom.protocol.message.data.NotificationType;
 import com.kdyncs.dynaroom.protocol.message.type.Notification;
-import com.kdyncs.dynaroom.server.core.ConnectionPool;
+import com.kdyncs.dynaroom.server.subsystem.core.ConnectionPool;
 import com.kdyncs.dynaroom.server.subsystem.room.model.connection.ClientConnection;
 import com.kdyncs.dynaroom.server.subsystem.room.protocol.Command;
 import com.kdyncs.dynaroom.protocol.message.type.AuthenticationLogin;
