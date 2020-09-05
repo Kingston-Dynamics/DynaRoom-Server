@@ -30,25 +30,25 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class RoomPool {
     
-    private final Map<String, Room> channels;
+    private final Map<String, Room> rooms;
     
     public RoomPool() {
-        channels = new ConcurrentHashMap<>(1000);
+        rooms = new ConcurrentHashMap<>(1000);
     }
     
     public void add(String roomId, Room room) {
-        channels.put(roomId, room);
+        rooms.put(roomId, room);
     }
     
-    public void remove(String channelID) {
-        channels.remove(channelID);
+    public void remove(String roomId) {
+        rooms.remove(roomId);
     }
     
-    public boolean contains(String channelID) {
-        return channels.containsKey(channelID);
+    public boolean contains(String roomId) {
+        return rooms.containsKey(roomId);
     }
     
-    public Room find(String channelID) {
-        return channels.get(channelID);
+    public Room find(String roomId) {
+        return rooms.get(roomId);
     }
 }

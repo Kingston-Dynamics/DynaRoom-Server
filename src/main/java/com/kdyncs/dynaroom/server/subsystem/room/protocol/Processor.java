@@ -53,15 +53,15 @@ public class Processor implements Runnable {
     private final ConnectionService connection;
     private final AuthenticationService authentication;
     private final ApplicationService application;
-    private final RoomService channel;
+    private final RoomService room;
     
     @Autowired
-    public Processor(ConnectionService connection, AuthenticationService authentication, ApplicationService application, RoomService channel) {
+    public Processor(ConnectionService connection, AuthenticationService authentication, ApplicationService application, RoomService room) {
 
         this.connection = connection;
         this.authentication = authentication;
         this.application = application;
-        this.channel = channel;
+        this.room = room;
         
         this.queue = new LinkedBlockingQueue<>();
         this.thread = new Thread(this);
@@ -134,10 +134,10 @@ public class Processor implements Runnable {
                 connection.remove(command);
                 break;
             case ROOM_JOIN:
-                channel.join(command);
+                room.join(command);
                 break;
             case ROOM_CREATE:
-                channel.join(command);
+                room.join(command);
                 break;
             default:
                 unknownCommand();

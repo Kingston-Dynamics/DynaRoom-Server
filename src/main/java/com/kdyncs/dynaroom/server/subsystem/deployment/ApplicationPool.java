@@ -47,13 +47,13 @@ public class ApplicationPool {
     public void add(Application application) {
         log.info("Adding Application to Pool");
         applications.put(application.getApplicationKey(), application);
-        log.info("Deployments: " + deployCount());
+        log.info("Deployments: " + count());
     }
     
     public void remove(String applicationKey) {
         log.debug("Removing Application {} from Pool", applicationKey);
         applications.remove(applicationKey);
-        log.info("Deployments: " + deployCount());
+        log.info("Deployments: " + count());
     }
     
     public Application get(String applicationKey) {
@@ -64,7 +64,7 @@ public class ApplicationPool {
         return applications.containsKey(applicationKey);
     }
     
-    public int deployCount() {
+    public int count() {
         return applications.size();
     }
     
