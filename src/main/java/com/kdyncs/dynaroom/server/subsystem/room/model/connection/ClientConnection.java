@@ -22,6 +22,7 @@ import com.kdyncs.dynaroom.protocol.networking.NetworkError;
 import com.kdyncs.dynaroom.protocol.networking.NetworkManager;
 import com.kdyncs.dynaroom.protocol.networking.NetworkReader;
 import com.kdyncs.dynaroom.protocol.networking.NetworkWriter;
+import com.kdyncs.dynaroom.server.subsystem.room.model.application.Room;
 import com.kdyncs.dynaroom.server.subsystem.room.protocol.Command;
 import com.kdyncs.dynaroom.server.subsystem.room.protocol.Processor;
 import com.kdyncs.dynaroom.server.subsystem.room.service.ConnectionService;
@@ -32,7 +33,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.net.Socket;
-import java.time.Instant;
 
 /**
  * @author peter
@@ -51,17 +51,23 @@ public class ClientConnection implements NetworkManager {
     
     // Store instance of Socket
     private Socket socket;
-    private final Instant connectionTime;
     
-    // Input and Output
+    // TX and RX
     private NetworkWriter writer;
     private NetworkReader reader;
     
     // Connection Pool Reference
     private String connectionID;
     private String externalID;
+    
+    // Application Reference
     private String applicationKey;
+    
+    // Something
     private boolean active;
+    
+    // Save Hosted Room
+    private Room hosting;
 
     @Autowired
     public ClientConnection(Processor processor, ConnectionService connection) {
@@ -70,9 +76,6 @@ public class ClientConnection implements NetworkManager {
 
         // Client is Inactive by Default
         this.active = false;
-
-        // Set Connection Time
-        connectionTime = Instant.now();
     }
     
     @Override
@@ -116,10 +119,6 @@ public class ClientConnection implements NetworkManager {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public Instant getConnectionTime() {
-        return connectionTime;
     }
 
     public String getApplicationKey() {
@@ -171,5 +170,13 @@ public class ClientConnection implements NetworkManager {
     
     public String getHostAddress() {
         return socket.getRemoteSocketAddress().toString();
+    }
+
+    public Room getHosting() {
+        return hosting;
+    }
+
+    public void setHosting(Room hosting) {
+        this.hosting = hosting;
     }
 }

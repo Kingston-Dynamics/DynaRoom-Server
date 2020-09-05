@@ -18,15 +18,11 @@
  */
 package com.kdyncs.dynaroom.server.subsystem.room.service;
 
-import com.kdyncs.dynaroom.protocol.message.type.RoomCreate;
 import com.kdyncs.dynaroom.protocol.message.type.RoomJoin;
 import com.kdyncs.dynaroom.server.subsystem.core.ConnectionPool;
 import com.kdyncs.dynaroom.server.subsystem.deployment.ApplicationPool;
-import com.kdyncs.dynaroom.server.subsystem.room.model.application.Application;
 import com.kdyncs.dynaroom.server.subsystem.room.model.application.Room;
-import com.kdyncs.dynaroom.server.subsystem.room.model.application.RoomPool;
 import com.kdyncs.dynaroom.server.subsystem.room.protocol.Command;
-import com.kdyncs.dynaroom.server.subsystem.room.model.connection.ClientConnection;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -76,8 +72,12 @@ public class RoomService {
             rooms.add(room.getCode(), room);
         }
 
+        // Get Room Instance
         var room = rooms.find(message.getRoomId());
-
+        var host = room.getHost().getHostAddress();
+        
+        // Return Host Addess to Client
+        
         // Send 
         log.info("Room Joined");
     }
@@ -88,13 +88,7 @@ public class RoomService {
         
         // Retrieve Client
         var connection = connections.get(command.getIssuer());
-        
-        // Rebuild Message
-        //var message = new RoomCreate(command.getData());
-        
-        // Validate Protocol State
-        // TODO:
-        
+                
         // Get copy of Application
         var application = applications.get(connection.getApplicationKey());
                 
@@ -110,9 +104,11 @@ public class RoomService {
             room.setCode(generateRoomCode());
         } while (rooms.contains(room.getCode()));
         
-        
-        // Add Room
+        // Add Room to Application
         rooms.add(room.getCode(), room);
+        
+        // Add Roomt to Host
+        connection.setHosting(room);
         
     }
 
