@@ -20,7 +20,6 @@ package com.kdyncs.dynaroom.server.subsystem.room.protocol;
 
 import com.kdyncs.dynaroom.protocol.message.data.MessageType;
 import com.kdyncs.dynaroom.protocol.utils.Determinator;
-import com.kdyncs.dynaroom.server.subsystem.room.service.ApplicationService;
 import com.kdyncs.dynaroom.server.subsystem.room.service.AuthenticationService;
 import com.kdyncs.dynaroom.server.subsystem.room.service.RoomService;
 import com.kdyncs.dynaroom.server.subsystem.room.service.ConnectionService;
@@ -52,15 +51,13 @@ public class Processor implements Runnable {
     // Spring Services
     private final ConnectionService connection;
     private final AuthenticationService authentication;
-    private final ApplicationService applications;
     private final RoomService rooms;
     
     @Autowired
-    public Processor(ConnectionService connection, AuthenticationService authentication, ApplicationService applications, RoomService rooms) {
+    public Processor(ConnectionService connection, AuthenticationService authentication, RoomService rooms) {
 
         this.connection = connection;
         this.authentication = authentication;
-        this.applications = applications;
         this.rooms = rooms;
         
         this.queue = new LinkedBlockingQueue<>();
@@ -134,7 +131,7 @@ public class Processor implements Runnable {
                 rooms.join(command);
                 break;
             case ROOM_CREATE:
-                rooms.join(command);
+                rooms.create(command);
                 break;
             case ROOM_LIST:
                 rooms.list(command);
