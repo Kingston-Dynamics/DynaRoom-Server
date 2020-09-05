@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kdyncs.dynaroom.database.schema.model;
+package com.kdyncs.dynaroom.database.model;
 
 import java.util.UUID;
 //import javax.persistence.Column;

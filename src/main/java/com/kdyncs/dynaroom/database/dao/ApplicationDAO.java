@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kdyncs.dynaroom.database.schema.dao;
+package com.kdyncs.dynaroom.database.dao;
 
 import com.kdyncs.dynaroom.common.SafeList;
-import com.kdyncs.dynaroom.database.schema.model.ApplicationModel;
+import com.kdyncs.dynaroom.database.model.ApplicationModel;
 //import com.kdyncs.dynaroom.database.schema.software.repository.ApplicationRepository;
 import java.util.List;
 //import org.springframework.beans.factory.annotation.Autowired;

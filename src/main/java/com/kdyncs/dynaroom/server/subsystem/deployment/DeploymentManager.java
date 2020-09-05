@@ -5,8 +5,8 @@
  */
 package com.kdyncs.dynaroom.server.subsystem.deployment;
 
-import com.kdyncs.dynaroom.database.schema.dao.ApplicationDAO;
-import com.kdyncs.dynaroom.database.schema.model.ApplicationModel;
+import com.kdyncs.dynaroom.database.dao.ApplicationDAO;
+import com.kdyncs.dynaroom.database.model.ApplicationModel;
 import com.kdyncs.dynaroom.server.config.DedicatedConfiguration;
 import com.kdyncs.dynaroom.server.subsystem.room.model.application.Application;
 import java.util.List;
