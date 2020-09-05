@@ -20,7 +20,6 @@ package com.kdyncs.dynaroom.server.subsystem.deployment;
 
 import com.kdyncs.dynaroom.database.dao.ApplicationDAO;
 import com.kdyncs.dynaroom.server.config.DedicatedConfiguration;
-import com.kdyncs.dynaroom.server.subsystem.room.model.application.Application;
 import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -80,12 +79,16 @@ public class DeploymentManager implements Runnable {
             log.info("DynaRoom is running in dedicated mode");
             log.info("Deploying dedicated application");
             
-            // Build Application
-            Application application = context.getBean(Application.class);
-            application.setApplicationKey(config.getApplicationKey());
+//            // Build Application
+//            
+//            
+//            var application = context.getBean(Application.class);
+//            application.setApplicationKey(config.getApplicationKey());
+//            
+//            // Add Application to Application Pool
+//            applicationPool.add(application);
             
-            // Add Application to Application Pool
-            applicationPool.add(application);
+            deploymentService.deploy(config.getApplicationKey());
             
             // Stop Deployment Manager
             running = false;
@@ -111,17 +114,11 @@ public class DeploymentManager implements Runnable {
 //            // Deploy Valid Applications.
 //            for (ApplicationModel application : applications) {
 //                // If Not Deploy then Deploy
-//                if (applicationPool.isDeployed(application.getKey().toString())) {
+//                if (!applicationPool.isDeployed(application.getKey().toString())) {
 //                    log.debug("Deploying Application");
 //                    
-//                    // Create Instance of Application Component
-//                    Application deployableApplication = context.getBean(Application.class);
-//                    
-//                    // Fill Out Data
-//                    deployableApplication.setApplicationKey(application.getKey().toString());
-//                    
-//                    // Register (Accept Connections)
-//                    applicationPool.add(deployableApplication);
+//                    // Deploy Application
+//                    deploymentService.deploy(application.getKey().toString());
 //                }
 //            }
 //
