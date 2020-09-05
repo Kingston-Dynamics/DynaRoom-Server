@@ -1,3 +1,6 @@
+# Ignore the netbeans license header
+licenseheader.txt
+
 # Ignore the build directory
 /build
 
