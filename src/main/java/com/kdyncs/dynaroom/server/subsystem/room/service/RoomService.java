@@ -75,13 +75,13 @@ public class RoomService {
         log.info("Channel Joined");
     }
 
-    public void create() {
+    public void create(Command command) {
 
         //Room room = new Room();
         //rooms.add(room.getCode(), room);
     }
 
-    public void list() {
+    public void list(Command command) {
 
     }
 }

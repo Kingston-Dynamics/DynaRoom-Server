@@ -52,16 +52,16 @@ public class Processor implements Runnable {
     // Spring Services
     private final ConnectionService connection;
     private final AuthenticationService authentication;
-    private final ApplicationService application;
-    private final RoomService room;
+    private final ApplicationService applications;
+    private final RoomService rooms;
     
     @Autowired
-    public Processor(ConnectionService connection, AuthenticationService authentication, ApplicationService application, RoomService room) {
+    public Processor(ConnectionService connection, AuthenticationService authentication, ApplicationService applications, RoomService room) {
 
         this.connection = connection;
         this.authentication = authentication;
-        this.application = application;
-        this.room = room;
+        this.applications = applications;
+        this.rooms = room;
         
         this.queue = new LinkedBlockingQueue<>();
         this.thread = new Thread(this);
@@ -120,9 +120,6 @@ public class Processor implements Runnable {
         MessageType type = Determinator.determinate(command.getData());
         
         switch (type) {
-            case ROOM_LIST:
-                application.getChannels(command);
-                break;
             case AUTHENTICATION_LOGIN:
                 authentication.login(command);
                 break;
@@ -134,10 +131,13 @@ public class Processor implements Runnable {
                 connection.remove(command);
                 break;
             case ROOM_JOIN:
-                room.join(command);
+                rooms.join(command);
                 break;
             case ROOM_CREATE:
-                room.join(command);
+                rooms.join(command);
+                break;
+            case ROOM_LIST:
+                rooms.list(command);
                 break;
             default:
                 unknownCommand();
