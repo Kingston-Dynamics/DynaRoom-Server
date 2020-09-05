@@ -56,12 +56,12 @@ public class Processor implements Runnable {
     private final RoomService rooms;
     
     @Autowired
-    public Processor(ConnectionService connection, AuthenticationService authentication, ApplicationService applications, RoomService room) {
+    public Processor(ConnectionService connection, AuthenticationService authentication, ApplicationService applications, RoomService rooms) {
 
         this.connection = connection;
         this.authentication = authentication;
         this.applications = applications;
-        this.rooms = room;
+        this.rooms = rooms;
         
         this.queue = new LinkedBlockingQueue<>();
         this.thread = new Thread(this);
